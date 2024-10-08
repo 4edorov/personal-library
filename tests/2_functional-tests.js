@@ -86,7 +86,7 @@ suite('Functional Tests', function() {
               assert.equal(res.status, 200);
               assert.property(res.body, '_id', 'Book should contain _id');
               assert.property(res.body, 'title', 'Book should contain title');
-              assert.property(res.body, 'comment', 'Book should contain comment');
+              assert.property(res.body, 'comments', 'Book should contain comments');
               done();
             });
         });
@@ -103,8 +103,8 @@ suite('Functional Tests', function() {
               assert.equal(res.status, 200);
               assert.property(res.body, '_id', 'Book should contain _id');
               assert.property(res.body, 'title', 'Book should contain title');
-              assert.property(res.body, 'comment', 'Book should contain comment');
-              assert.include(res.body.comment, 'Test comment', 'Comments should contain test comment');
+              assert.property(res.body, 'comments', 'Book should contain comments');
+              assert.include(res.body.comments, 'Test comment', 'Comments should contain test comments');
               done();
             });
         });

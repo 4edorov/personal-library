@@ -23,7 +23,7 @@ module.exports = function (app, db) {
               _id: 1,
               title: 1,
               commentcount: { $size: {
-                $ifNull: ['$comment', []]
+                $ifNull: ['$comments', []]
               }}
             }
           }
@@ -47,7 +47,7 @@ module.exports = function (app, db) {
         title
       };
       if (req.body.comment) {
-        bookToCreate.comment = [req.body.comment];
+        bookToCreate.comments = [req.body.comment];
       }
 
       try {
@@ -87,6 +87,10 @@ module.exports = function (app, db) {
           return res.send('no book exists');
         }
 
+        if (!getRes.comments) {
+          getRes.comments = [];
+        }
+
         return res.send(getRes)
       } catch (err) {
         return res.send('no book exists');
@@ -105,7 +109,7 @@ module.exports = function (app, db) {
         const updateRes = await db.collection(collectionName)
           .updateOne(
             { _id: new ObjectId(bookid) },
-            { $push: { comment } }
+            { $push: { comments: comment } }
           )
 
         if (updateRes.modifiedCount < 1) {
